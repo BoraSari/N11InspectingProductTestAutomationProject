@@ -23,7 +23,7 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 public class ProductDetailsPage extends BasePage{
 
-    @FindBy(xpath = "//img[@src='https://n11scdn.akamaized.net/a1/602_857/08/19/41/10/IMG-2321208257135587485.jpg']")
+    @FindBy(css = "img[src='https://n11scdn.akamaized.net/a1/602_857/11/99/81/81/IMG-593874296162406960.jpg']")
     private WebElement productImage;
     @FindBy(css = "button[class='slick-next-main slick-arrow'")
     private WebElement arrowButton;
@@ -31,7 +31,7 @@ public class ProductDetailsPage extends BasePage{
     private WebElement closeButton;
     @FindBy(id = "readReviews")
     private WebElement evaluationOfProduct;
-    @FindBy(xpath = "//img[@src='https://n11scdn.akamaized.net/a1/org/24/08/09/88/56/64/67/16/21/58/62/81/79064825173882417375.png']")
+    @FindBy(xpath = "//img[@src='https://n11scdn.akamaized.net/a1/org/24/08/09/88/56/64/67/16/21/58/62/81/79064825173882417375.png'][1]")
     private WebElement overseasProductImage;
 
 
