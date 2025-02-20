@@ -36,7 +36,7 @@ public class N11Tests extends BaseTest{
        }
         productDetailsPage.closeProductImages();
         Thread.sleep(5000);
-        softAssert.assertEquals(productDetailsPage.checkEvaluationOfProduct(),"3\n" +
+        softAssert.assertEquals(productDetailsPage.checkEvaluationOfProduct(),"8\n" +
                 "değerlendirme");
         softAssert.assertTrue(productDetailsPage.checkOverseasImage().isDisplayed());
     }
