@@ -47,9 +47,11 @@ public class ProductDetailsPage extends BasePage{
     }
 
     public void clickArrowButton()throws InterruptedException{
+        Actions actions = new Actions(driver);
+        WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(10));
         if(arrowButton.isEnabled()&&arrowButton.isDisplayed()){
-            Thread.sleep(2000);
-            arrowButton.click();
+           wait.until(ExpectedConditions.visibilityOf(arrowButton)).isDisplayed();
+            actions.click(arrowButton).build().perform();
         }
 
     }
