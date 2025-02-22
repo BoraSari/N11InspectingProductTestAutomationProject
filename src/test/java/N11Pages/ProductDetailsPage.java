@@ -5,27 +5,20 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.time.Duration;
-import java.util.Collections;
-import java.util.concurrent.TimeUnit;
 
 import static com.google.common.util.concurrent.Futures.withTimeout;
-import static java.util.concurrent.TimeUnit.SECONDS;
-import static org.openqa.selenium.support.ui.ExpectedConditions.refreshed;
-import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOf;
 
 
 public class ProductDetailsPage extends BasePage{
 
-    @FindBy(css = "img[src='https://n11scdn.akamaized.net/a1/602_857/11/99/81/81/IMG-593874296162406960.jpg']")
-    private WebElement productImage;
-    @FindBy(css = "button[class='slick-next-main slick-arrow'")
+    @FindBy(xpath = "//img[@src='https://n11scdn.akamaized.net/a1/602_857/03/53/57/18/IMG-2097642565721014876.jpg']")
+    private WebElement product;
+    @FindBy(xpath = "//button[@class='slick-next-main slick-arrow' and @aria-label='İleri']")
     private WebElement arrowButton;
     @FindBy(className = "closeBtn")
     private WebElement closeButton;
@@ -42,10 +35,10 @@ public class ProductDetailsPage extends BasePage{
 
     public void clickProduct()throws InterruptedException {
       WebDriverWait wait = new WebDriverWait(driver,Duration.ofSeconds(20));
-      wait.until(ExpectedConditions.visibilityOf(productImage));
+      wait.until(ExpectedConditions.visibilityOf(product));
        Actions actions = new Actions(driver);
-        if(productImage.isDisplayed()&& productImage.isEnabled()){
-            actions.moveToElement(productImage).click().perform();
+        if(product.isDisplayed()&& product.isEnabled()){
+            actions.moveToElement(product).click().perform();
         }else{
             System.out.println("Element is not displayed");
         }
@@ -54,7 +47,11 @@ public class ProductDetailsPage extends BasePage{
     }
 
     public void clickArrowButton()throws InterruptedException{
-        arrowButton.click();
+        if(arrowButton.isEnabled()&&arrowButton.isDisplayed()){
+            Thread.sleep(2000);
+            arrowButton.click();
+        }
+
     }
 
     public void closeProductImages() throws AWTException{

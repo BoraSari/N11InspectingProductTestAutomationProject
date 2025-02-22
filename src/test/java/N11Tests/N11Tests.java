@@ -30,13 +30,13 @@ public class N11Tests extends BaseTest{
     public void checkingOverseasProductTest() throws InterruptedException, AWTException {
         ProductDetailsPage productDetailsPage = new ProductDetailsPage(driver);
         productDetailsPage.clickProduct();
-       for(int i=0;i<7;i++){
-           productDetailsPage.clickArrowButton();
+       for(int i=0;i<9;i++){
            Thread.sleep(2000);
+           productDetailsPage.clickArrowButton();
        }
         productDetailsPage.closeProductImages();
         Thread.sleep(5000);
-        softAssert.assertEquals(productDetailsPage.checkEvaluationOfProduct(),"8\n" +
+        softAssert.assertEquals(productDetailsPage.checkEvaluationOfProduct(),"51\n" +
                 "değerlendirme");
         softAssert.assertTrue(productDetailsPage.checkOverseasImage().isDisplayed());
     }
