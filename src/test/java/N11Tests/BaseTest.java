@@ -11,29 +11,37 @@ import org.testng.asserts.SoftAssert;
 
 import java.time.Duration;
 
+import static java.sql.DriverManager.getDriver;
+
 public class BaseTest {
 
-     WebDriver driver;
+    // WebDriver driver;
+    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     SoftAssert softAssert;
 
     @BeforeClass
     @Parameters({"browser"})
     public void setup(String browser){
-        switch (browser){
-            case "google":
+        switch (browser.toLowerCase()) {  // Küçük harfe çevirerek olası yanlış girişleri önle
+            case "chrome":
                 WebDriverManager.chromedriver().setup();
-                driver=new ChromeDriver();
+                driver.set(new ChromeDriver());
                 break;
             case "firefox":
                 WebDriverManager.firefoxdriver().setup();
-                driver=new FirefoxDriver();
+                driver.set(new FirefoxDriver());
                 break;
-            default:throw new RuntimeException("Test can't started");
+            default:
+                throw new IllegalArgumentException("Geçersiz tarayıcı: " + browser + " | Lütfen 'chrome' veya 'firefox' seçiniz.");
         }
 
-        driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
-        softAssert=new SoftAssert();
+        getDriver().manage().window().maximize();
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        softAssert = new SoftAssert();
+
+    }
+    public static WebDriver getDriver() {
+        return driver.get();
     }
 
 
@@ -42,7 +50,11 @@ public class BaseTest {
 
     @AfterClass
     public void tearDown(){
-        driver.quit();
+        if (getDriver()!=null){
+            getDriver().quit();
+            driver.remove();
+        }
+
         softAssert.assertAll("All tests are asserted");
 
     }
