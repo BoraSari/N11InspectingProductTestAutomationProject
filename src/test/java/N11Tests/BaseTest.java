@@ -16,13 +16,13 @@ import static java.sql.DriverManager.getDriver;
 public class BaseTest {
 
     // WebDriver driver;
-    private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+    private static final ThreadLocal<WebDriver> driver = new ThreadLocal<>();
     SoftAssert softAssert;
 
     @BeforeClass
     @Parameters({"browser"})
     public void setup(String browser){
-        switch (browser.toLowerCase()) {  // Küçük harfe çevirerek olası yanlış girişleri önle
+        switch (browser.toLowerCase()) {
             case "chrome":
                 WebDriverManager.chromedriver().setup();
                 driver.set(new ChromeDriver());
@@ -32,7 +32,7 @@ public class BaseTest {
                 driver.set(new FirefoxDriver());
                 break;
             default:
-                throw new IllegalArgumentException("Geçersiz tarayıcı: " + browser + " | Lütfen 'chrome' veya 'firefox' seçiniz.");
+                throw new IllegalArgumentException("Invalid browser: " + browser + " | please use 'chrome' or 'firefox'");
         }
 
         getDriver().manage().window().maximize();
